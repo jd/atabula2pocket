@@ -11,7 +11,7 @@ def hello(url):
     session = atabula.get_session()
     result = session.get("https://{}".format(url))
     if "text/html" in result.headers["content-type"]:
-        content = result.text.replace("https://www.atabula.com", "http://{}/{}/www.atabula.com".format(
+        content = result.text.replace("https://www.atabula.com", "https://{}/{}/www.atabula.com".format(
             secrets.APP_DOMAIN, secrets.URL_PREFIX)
         )
     else:

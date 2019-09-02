@@ -57,7 +57,9 @@ def main():
             link = "https://{}/{}/{}".format(
                 secrets.APP_DOMAIN, secrets.URL_PREFIX, m.group(1),
             )
-            p.add(link)
+            if link not in articles_already_pushed:
+                p.add(link)
+                articles_already_pushed.add(link)
 
 
 if __name__ == '__main__':
