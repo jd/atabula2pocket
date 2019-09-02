@@ -9,7 +9,10 @@ application = Flask(__name__)
 @application.route('/{}/<path:url>'.format(secrets.URL_PREFIX))
 def hello(url):
     session = atabula.get_session()
-    return session.get("https://{}".format(url)).content
+    text = session.get("https://{}".format(url)).text
+    return text.replace("www.atabula.com", "{}/{}".format(
+        secrets.APP_DOMAIN, secrets.URL_PREFIX)
+    )
 
 
 if __name__ == '__main__':

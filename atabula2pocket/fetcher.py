@@ -32,19 +32,16 @@ if DEBUG:
 
 
 RE_ARTICLE_LINK = re.compile("<a href=\"https://(www.atabula.com/20../[^\"]+)\"")
-# This should be set to your proxy app prefix
-APP_DOMAIN = os.getenv("ATABULA2POCKET_DOMAIN")
 
 
 def main():
     session = atabula.get_session()
-    raise Exception()
     frontpage = session.get("https://atabula.com")
 
     access_token = os.getenv("POCKET_ACCESS_TOKEN")
     p = pocket.Pocket(POCKET_CONSUMER_KEY, access_token)
 
-    already_in_pocket = p.get(domain=APP_DOMAIN, detailType="simple",
+    already_in_pocket = p.get(domain=secrets.APP_DOMAIN, detailType="simple",
                               state="all")
     if already_in_pocket[0]['list']:
         articles_already_pushed = {
@@ -58,7 +55,7 @@ def main():
         m = RE_ARTICLE_LINK.search(line)
         if m:
             link = "https://{}/{}/{}".format(
-                APP_DOMAIN, secrets.URL_PREFIX, m.group(1),
+                secrets.APP_DOMAIN, secrets.URL_PREFIX, m.group(1),
             )
             print(link)
             # p.add(link)
