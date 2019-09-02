@@ -10,7 +10,7 @@ application = Flask(__name__)
 def hello(url):
     session = atabula.get_session()
     text = session.get("https://{}".format(url)).text
-    return text.replace("www.atabula.com", "{}/www,atabula.com/{}".format(
+    return text.replace("www.atabula.com", "{}/www.atabula.com/{}".format(
         secrets.APP_DOMAIN, secrets.URL_PREFIX)
     )
 
