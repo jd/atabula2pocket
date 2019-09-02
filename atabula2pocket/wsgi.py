@@ -1,18 +1,26 @@
-from flask import Flask
+import flask
 
 from atabula2pocket import atabula
 from atabula2pocket import secrets
 
-application = Flask(__name__)
+application = flask.Flask(__name__)
 
 
 @application.route('/{}/<path:url>'.format(secrets.URL_PREFIX))
 def hello(url):
     session = atabula.get_session()
-    text = session.get("https://{}".format(url)).text
-    return text.replace("www.atabula.com", "{}/{}/www.atabula.com".format(
-        secrets.APP_DOMAIN, secrets.URL_PREFIX)
-    )
+    result = session.get("https://{}".format(url))
+    if "text/html" in result.headers["content-type"]:
+        content = result.text.replace("https://www.atabula.com", "http://{}/{}/www.atabula.com".format(
+            secrets.APP_DOMAIN, secrets.URL_PREFIX)
+        )
+    else:
+        content = result.content
+    response = flask.Response(content)
+    response.status_code = result.status_code
+    response.headers["Content-Type"] = result.headers["Content-Type"]
+    return response
+
 
 
 if __name__ == '__main__':
