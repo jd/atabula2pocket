@@ -57,8 +57,7 @@ def main():
             link = "https://{}/{}/{}".format(
                 secrets.APP_DOMAIN, secrets.URL_PREFIX, m.group(1),
             )
-            print(link)
-            # p.add(link)
+            p.add(link)
 
 
 if __name__ == '__main__':
