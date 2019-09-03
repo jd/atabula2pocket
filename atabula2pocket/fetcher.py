@@ -43,9 +43,10 @@ def main():
 
     already_in_pocket = p.get(domain=secrets.APP_DOMAIN, detailType="simple",
                               state="all")
+
     if already_in_pocket[0]['list']:
         articles_already_pushed = {
-            entry['given_url']
+            entry['given_url'].replace("https://", "").replace("http://", "")
             for entry in already_in_pocket[0]['list'].values()
         }
     else:
@@ -54,12 +55,12 @@ def main():
     for line in frontpage.text.split("\n"):
         m = RE_ARTICLE_LINK.search(line)
         if m:
-            link = "https://{}/{}/{}".format(
+            link = "{}/{}/{}".format(
                 secrets.APP_DOMAIN, secrets.URL_PREFIX, m.group(1),
             )
             if link not in articles_already_pushed:
-                p.add(link)
                 articles_already_pushed.add(link)
+                p.add("https://" + link, tags=["Food"])
 
 
 if __name__ == '__main__':
