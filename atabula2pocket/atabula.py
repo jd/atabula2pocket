@@ -22,6 +22,7 @@ def get_session():
             "woocommerce-login-nonce": nonce,
             "_wp_http_referer": "/mon-compte%/",
             "login": "Connection",
+            "rememberme": "forever",
         },
         allow_redirects=False,
     )
