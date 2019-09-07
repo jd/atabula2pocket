@@ -6,9 +6,10 @@ from atabula2pocket import secrets
 application = flask.Flask(__name__)
 
 
+session = atabula.get_session()
+
 @application.route('/{}/<path:url>'.format(secrets.URL_PREFIX))
 def hello(url):
-    session = atabula.get_session()
     result = session.get("https://{}".format(url))
     if "text/html" in result.headers["content-type"]:
         content = result.text.replace("https://www.atabula.com", "https://{}/{}/www.atabula.com".format(
