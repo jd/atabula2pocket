@@ -60,7 +60,9 @@ def main():
             )
             if link not in articles_already_pushed:
                 articles_already_pushed.add(link)
-                p.add("https://" + link, tags=["Food"])
+                url = "https://" + link
+                p.add(url, tags=["Food"])
+                print("Adding {}".format(url))
 
 
 if __name__ == '__main__':
