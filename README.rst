@@ -5,7 +5,7 @@
 This program is designed to weekly import Atabula_ articles to your Pocket_
 account.
 
-.. _LWN.net: https://atabula.com
+.. _Atabula: https://atabula.com
 .. _Pocket: https://pocket.co
 
 How to use it
